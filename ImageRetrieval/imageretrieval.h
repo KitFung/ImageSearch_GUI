@@ -3,6 +3,7 @@
 
 #include <QtWidgets>
 #include "ui_imageretrieval.h"
+#include "core_main.h"
 
 class ImageRetrieval : public QMainWindow
 {
@@ -12,8 +13,12 @@ public:
 	ImageRetrieval(QWidget *parent = 0);
 	~ImageRetrieval();
 
+public slots:
+	void updateResult();
+
 private:
 	Ui::ImageRetrievalClass ui;
+	
 	void init();
 };
 

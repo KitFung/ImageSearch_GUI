@@ -27,23 +27,6 @@ string getFilePath(int index){
 	return s;
 }
 
-void file_select_instruction() {
-	cout << "Which file? (0:'man' 1:'beach', 2:'building', 3:'bus', 4:'dinosaur', " << endl
-		<< "            6:'flower', 7:'horse')? " << endl;
-}
-
-string askFile(){
-	file_select_instruction();
-	int index;
-	cin >> index;
-	while (index <-2 || index == 5 || index > 7)
-	{
-		file_select_instruction();
-		cin >> index;
-	}
-	return getFilePath(index);
-}
-
 // "../image.orig/685.jpg"
 string getFilePath999(int index){
 	if (index < 0 || index > 999)
@@ -65,20 +48,20 @@ Mat get_input_img(int index) {
 	return src_input;
 }
 
-void waitESC() {
-	// Wait for the user to press a key in the GUI window.
-	//Press ESC to quit
-	int keyValue = 0;
-	while (keyValue >= 0)
-	{
-		keyValue = cvWaitKey(0);
-
-		switch (keyValue)
-		{
-		case 27:keyValue = -1;
-			break;
-		}
-	}
+vector<int> find_similiar_image(int index, vector<string> &infos) {
+	vector<int> res;
+	res.push_back(index * 100);
+	res.push_back(index * 100 + 1);
+	res.push_back(index * 100 + 2);
+	res.push_back(index * 100 + 3);
+	res.push_back(index * 100 + 4);
+	res.push_back(index * 100 + 5);
+	infos.push_back("A = 1");
+	infos.push_back("A2 = 1");
+	infos.push_back("A3 = 1");
+	infos.push_back("A4 = 1");
+	infos.push_back("A5 = 1");
+	return res;
 }
 
 double solve(int index) {
@@ -93,98 +76,6 @@ double solve(int index) {
 	double acc = svm_compare(src_input, index);
 	return acc;
 }
-
-void test_all_average() {
-	double cnt = 7;
-	double totacc = 0;
-	vector<double> accs;
-	for (auto idx : valid_indexs) {
-		double acc = solve(idx);
-		totacc += acc;
-		accs.push_back(acc);
-	}
-
-	for (int i = 0; i < accs.size(); ++i) {
-		int idx = valid_indexs[i];
-		double acc = accs[i];
-		cout << "Case " << idx << " acc: " << acc << endl;
-	}
-	cout << "Total average acc: " << totacc / cnt << endl;
-}
-
-void test_r1c1_to_r10c10() {
-	for (auto v_index : valid_indexs){
-		Mat src_input = get_input_img(v_index);
-
-		printf("Work for img \"%s\" :\n", files[v_index].c_str());
-		for (int i = 0; i < 11; i++)
-			for (int j = 0; j < 11; j++)
-				hsv_split_compare(src_input, v_index, false, i + 1, j + 1);
-
-		printf("Done for img \"%s\".\n", files[v_index].c_str());
-
-	}
-}
-
-void test_all_hsv_compare() {
-	for (auto v_index : valid_indexs){
-		Mat src_input = get_input_img(v_index);
-
-		printf("Work for img \"%s\" :\n", files[v_index].c_str());
-		hsv_compare(src_input, v_index);
-		printf("Done for img \"%s\".\n", files[v_index].c_str());
-
-	}
-}
-
-void core() {
-	Mat src_input;
-
-	Mat max_img;
-
-	file_select_instruction();
-	cout << " or -1 for all average: " << endl;
-	cout << " or -2 for save_allDescriptions_YML(): " << endl;
-	cout << " or -3 for test from r1c1 to r10c10  : " << endl;
-	cout << " or -4 for test all hsv_compare()    : " << endl;
-
-	int index;
-	cin >> index;
-
-	if (index == -2){
-		int type;
-		cout << " 0 for sift , 1 for surf, 2 for orb: " << endl;
-		cin >> type;
-		if (type == 0)
-			save_allSIFTDescriptions_YML();
-		else if (type == 1)
-			save_allSURFDescriptions_YML();
-		else
-			save_allORBDescriptions_YML();
-		waitESC();
-		return;
-	}
-	else if (index == -1) {
-		test_all_average();
-	}
-	else if (index == -3){
-		test_r1c1_to_r10c10();
-	}
-	else if (index == -4){
-		test_all_hsv_compare();
-	}
-	else {
-		solve(index);
-	}
-
-	do{
-		cout << "input -1 for exit...\n";
-		cin >> index;
-	} while (index != -1);
-
-	waitESC();
-}
-
 
 /*
 target:

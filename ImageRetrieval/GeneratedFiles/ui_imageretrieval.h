@@ -33,8 +33,9 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QHBoxLayout *horizontalLayout;
     QListWidget *baseImgList;
+    QWidget *widget;
     QVBoxLayout *actionList;
-    QPushButton *pushButton_3;
+    QPushButton *findSimiliar;
     QPushButton *pushButton_4;
     QPushButton *pushButton_2;
     QPushButton *pushButton;
@@ -71,36 +72,51 @@ public:
 
         horizontalLayout->addWidget(baseImgList);
 
-        actionList = new QVBoxLayout();
+        widget = new QWidget(centralWidget);
+        widget->setObjectName(QStringLiteral("widget"));
+        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Minimum);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
+        widget->setSizePolicy(sizePolicy1);
+        actionList = new QVBoxLayout(widget);
         actionList->setSpacing(6);
+        actionList->setContentsMargins(11, 11, 11, 11);
         actionList->setObjectName(QStringLiteral("actionList"));
-        pushButton_3 = new QPushButton(centralWidget);
-        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
+        findSimiliar = new QPushButton(widget);
+        findSimiliar->setObjectName(QStringLiteral("findSimiliar"));
+        findSimiliar->setEnabled(true);
 
-        actionList->addWidget(pushButton_3);
+        actionList->addWidget(findSimiliar);
 
-        pushButton_4 = new QPushButton(centralWidget);
+        pushButton_4 = new QPushButton(widget);
         pushButton_4->setObjectName(QStringLiteral("pushButton_4"));
+        pushButton_4->setEnabled(false);
 
         actionList->addWidget(pushButton_4);
 
-        pushButton_2 = new QPushButton(centralWidget);
+        pushButton_2 = new QPushButton(widget);
         pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+        pushButton_2->setEnabled(false);
 
         actionList->addWidget(pushButton_2);
 
-        pushButton = new QPushButton(centralWidget);
+        pushButton = new QPushButton(widget);
         pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setEnabled(false);
 
         actionList->addWidget(pushButton);
 
 
-        horizontalLayout->addLayout(actionList);
+        horizontalLayout->addWidget(widget);
 
         resultList = new QListWidget(centralWidget);
         resultList->setObjectName(QStringLiteral("resultList"));
-        sizePolicy.setHeightForWidth(resultList->sizePolicy().hasHeightForWidth());
-        resultList->setSizePolicy(sizePolicy);
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(resultList->sizePolicy().hasHeightForWidth());
+        resultList->setSizePolicy(sizePolicy2);
 
         horizontalLayout->addWidget(resultList);
 
@@ -134,7 +150,7 @@ public:
     void retranslateUi(QMainWindow *ImageRetrievalClass)
     {
         ImageRetrievalClass->setWindowTitle(QApplication::translate("ImageRetrievalClass", "ImageRetrieval", 0));
-        pushButton_3->setText(QApplication::translate("ImageRetrievalClass", "PushButton", 0));
+        findSimiliar->setText(QApplication::translate("ImageRetrievalClass", "Find 100 Similiar Images", 0));
         pushButton_4->setText(QApplication::translate("ImageRetrievalClass", "PushButton", 0));
         pushButton_2->setText(QApplication::translate("ImageRetrievalClass", "PushButton", 0));
         pushButton->setText(QApplication::translate("ImageRetrievalClass", "PushButton", 0));
