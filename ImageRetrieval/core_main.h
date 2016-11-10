@@ -21,6 +21,4 @@
 using namespace std;
 using namespace cv;
 
-void core();
-vector<int> find_similiar_image(int index, vector<string> &infos);
-string getFilePath999(int index);
+vector<int> find_similiar_image(int index, vector<string> &infos, double threshold = 6.619589);

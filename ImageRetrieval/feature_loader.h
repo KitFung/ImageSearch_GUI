@@ -11,6 +11,7 @@
 #include "opencv2/nonfree/nonfree.hpp"
 #include "opencv2/features2d/features2d.hpp"
 #include "feature_extract.h"
+#include "utils.h"
 
 using namespace std;
 using namespace cv;
@@ -22,13 +23,10 @@ using namespace cv;
 
 Mat load_allDescriptions();
 
-vector<Mat> load_allDescriptions_YML(string type);
+vector<Mat> load_allDescriptions_YML(string type, int partOf100 = 100, bool greyscale=false);
 
-Mat cal_descriptor(BOWImgDescriptorExtractor& bowExtractor, const Mat &db_img);
+vector<pair<int, Mat>>  load_mlSample(BOWImgDescriptorExtractor& bowExtractor, string type, int dictionarySize, bool greyscale=false);
 
-map<int, Mat> load_mlSample(BOWImgDescriptorExtractor& bowExtractor);
-
-vector<Mat> load_features();
-vector<Mat> load_imgs();
-vector<Mat> load_imgs(bool);
+vector<Mat> load_hsvHist();
+vector<Mat> load_imgs(bool out=false);
 bool read_images(FILE* fp, Mat &db_img, int db_id);

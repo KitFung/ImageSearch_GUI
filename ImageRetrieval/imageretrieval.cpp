@@ -23,7 +23,7 @@ void ImageRetrieval::init() {
 	ui.baseImgList->setSelectionMode(QAbstractItemView::SingleSelection);
 	ui.baseImgList->setAcceptDrops(false);
 	ui.resultList->setViewMode(QListWidget::IconMode);
-	ui.resultList->setIconSize(QSize(300, 300));
+	ui.resultList->setIconSize(QSize(350, 350));
 	ui.resultList->setSelectionMode(QAbstractItemView::SingleSelection);
 	ui.resultList->setAcceptDrops(false);
 
@@ -32,23 +32,29 @@ void ImageRetrieval::init() {
 		ui.baseImgList->addItem(new QListWidgetItem(QIcon(imgpath), qfiles[i]));
 	}
 
-	connect(ui.findSimiliar, SIGNAL(clicked()), this, SLOT(updateResult()));
+	connect(ui.findSimiliar, SIGNAL(clicked()), this, SLOT(startSearch()));
+
+	connect(&searchThread, SIGNAL(doneSearch(vector<int>, vector<string>)), this, SLOT(updateResult(vector<int>, vector<string>)));
 }
 
-void ImageRetrieval::updateResult() {
+void ImageRetrieval::startSearch() {
 
 	if (!ui.baseImgList->currentItem())
 		return;
 
+	ui.findSimiliar->setEnabled(false);
+	ui.findSimiliar->setText("Loading...");
+
 	QString curInput = ui.baseImgList->currentItem()->text();
 	int inputID = qfiles.indexOf(curInput);
 
-	ui.findSimiliar->setDisabled(true);
-	ui.findSimiliar->setText("Loading...");
+	searchThread.start();
+}
 
+void ImageRetrieval::updateResult(vector<int> similiars, vector<string> infos) {
 
-	vector<string> infos;
-	vector<int> similiars = find_similiar_image(inputID, infos);
+	ui.findSimiliar->setEnabled(true);
+	ui.findSimiliar->setText("Find similiar");
 
 	ui.resultList->clear();
 	for (auto id : similiars) {
@@ -62,8 +68,5 @@ void ImageRetrieval::updateResult() {
 		QString qinfo = QString().fromStdString(info);
 		ui.infoList->addItem(new QListWidgetItem(qinfo));
 	}
-	
 
-	ui.findSimiliar->setDisabled(false);
-	ui.findSimiliar->setText("Find similiar");
 }

@@ -1,8 +1,5 @@
 #include "feature_loader.h"
 
-/**
-Save the surf of each image to ../surf
-*/
 
 bool read_images(FILE* fp, Mat &db_img, int db_id, bool output) {
 	char imagepath[200];
@@ -33,7 +30,7 @@ bool read_images(FILE* fp, Mat &db_img, int db_id) {
 }
 
 vector<Mat> allDescriptors;
-vector<Mat> load_allDescriptions_YML(string type) {
+vector<Mat> load_allDescriptions_YML(string type, int partOf100, bool greyscale) {
 	if (!allDescriptors.empty()) return allDescriptors;
 
 	FILE* fp;
@@ -45,13 +42,21 @@ vector<Mat> load_allDescriptions_YML(string type) {
 		fpath = SIFT_LIST_FILE;
 	else
 		fpath = ORB_LIST_FILE;
+	if (greyscale) {
+		fpath = "g_" + fpath;
+	}
+
 	fopen_s(&fp, fpath.c_str(), "r");
 	printf("Extracting Descriptions from input images...\n");
 
+	int cnt = -1;
 	while (!feof(fp))
 	{
 		while (fscanf_s(fp, "%s ", imagepath, sizeof(imagepath)) > 0)
 		{
+			cnt++;
+			if (cnt % 100 >= partOf100) continue;
+
 			char tempname[200];
 			sprintf_s(tempname, 200, "../%s", imagepath); // ../%s
 			cout << "reading : " << tempname << endl;
@@ -80,7 +85,6 @@ Mat load_allDescriptions() {
 	int db_id = 0;
 	Mat db_img;
 	FILE* fp;
-	char imagepath[200];
 	fopen_s(&fp, IMAGE_LIST_FILE, "r");
 	printf("Extracting Descriptions from input images...\n");
 
@@ -99,45 +103,19 @@ Mat load_allDescriptions() {
 	return allDescriptors;
 }
 
-Mat cal_descriptor(BOWImgDescriptorExtractor& bowExtractor, const Mat &db_img) {
-	SurfFeatureDetector detector;
-	vector<KeyPoint> keyPoints;
-	Mat descriptors;
-	detector.detect(db_img, keyPoints);
-	bowExtractor.compute(db_img, keyPoints, descriptors);
-	return descriptors;
-}
 
-map<int, Mat> load_mlSample(BOWImgDescriptorExtractor& bowExtractor) {
-	map<int, Mat> samples;
-
-	int db_id = 0;
-	Mat db_img;
-	FILE* fp;
-	char imagepath[200];
-	fopen_s(&fp, IMAGE_LIST_FILE, "r");
-	printf("Extracting mlSample from input images...\n");
-	while (read_images(fp, db_img, db_id)) {
-		samples[db_id / 100].push_back(cal_descriptor(bowExtractor, db_img));
-
-		db_id++;
-	}
-	return samples;
-}
-
-vector<Mat> all_feature;
-vector<Mat> load_features() {
-	if (!all_feature.empty()) return all_feature;
+vector<Mat> all_hsvHist;
+vector<Mat> load_hsvHist() {
+	if (!all_hsvHist.empty()) return all_hsvHist;
 	///Read Database
 	int db_id = 0;
 	Mat db_img;
 	FILE* fp;
-	char imagepath[200];
 	fopen_s(&fp, IMAGE_LIST_FILE, "r");
 	printf("Extracting features from input images...\n");
 	while (read_images(fp, db_img, db_id, false)) {
 		Mat hist_base = rgbMat_to_hsvHist(db_img);
-		all_feature.push_back(hist_base);
+		all_hsvHist.push_back(hist_base);
 
 		if (db_id % 50 == 0)
 			cout << db_id / 10 << "%..";
@@ -146,7 +124,7 @@ vector<Mat> load_features() {
 	}
 	fclose(fp);
 	printf("Done\n");
-	return all_feature;
+	return all_hsvHist;
 }
 
 vector<Mat> all_img;
@@ -157,9 +135,8 @@ vector<Mat> load_imgs(bool out) {
 	int db_id = 0;
 	Mat db_img;
 	FILE* fp;
-	char imagepath[200];
 	fopen_s(&fp, IMAGE_LIST_FILE, "r");
-	printf("Extracting features from input images...\n");
+	printf("Loading the image dataset...\n");
 	while (read_images(fp, db_img, db_id, out)) {
 		all_img.push_back(db_img);
 		if (db_id % 50 == 0)
@@ -169,8 +146,4 @@ vector<Mat> load_imgs(bool out) {
 	fclose(fp);
 	printf("Done\n");
 	return all_img;
-}
-
-vector<Mat> load_imgs(){
-	return load_imgs(true);
 }

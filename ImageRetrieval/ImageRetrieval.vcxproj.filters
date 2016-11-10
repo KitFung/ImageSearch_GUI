@@ -45,14 +45,14 @@
     <Filter Include="Source Files\core\ml">
       <UniqueIdentifier>{3c8c3b3f-0486-4e60-aad2-f02925f9b855}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\core\compare\cmp">
+      <UniqueIdentifier>{a5cf9c40-0e90-4ec8-bc7f-a3846d8f84f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\core\other">
+      <UniqueIdentifier>{beccc594-7c72-47a3-927e-3c93c1002801}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="imageretrieval.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_imageretrieval.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -65,13 +65,7 @@
     <ClCompile Include="core_main.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
-    <ClCompile Include="ScoreReport.cpp">
-      <Filter>Source Files\core</Filter>
-    </ClCompile>
     <ClCompile Include="hsv_compare.cpp">
-      <Filter>Source Files\core\compare</Filter>
-    </ClCompile>
-    <ClCompile Include="surf_compare.cpp">
       <Filter>Source Files\core\compare</Filter>
     </ClCompile>
     <ClCompile Include="svm_compare.cpp">
@@ -92,6 +86,66 @@
     <ClCompile Include="ml.cpp">
       <Filter>Source Files\core\ml</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="combinate_compare.cpp">
+      <Filter>Source Files\core\compare</Filter>
+    </ClCompile>
+    <ClCompile Include="contour_cmp.cpp">
+      <Filter>Source Files\core\compare\cmp</Filter>
+    </ClCompile>
+    <ClCompile Include="double_compare.cpp">
+      <Filter>Source Files\core\compare</Filter>
+    </ClCompile>
+    <ClCompile Include="feature_cmp.cpp">
+      <Filter>Source Files\core\compare</Filter>
+    </ClCompile>
+    <ClCompile Include="feature_ml_loader.cpp">
+      <Filter>Source Files\core\feature</Filter>
+    </ClCompile>
+    <ClCompile Include="feature_ml_preprocess.cpp">
+      <Filter>Source Files\core\feature</Filter>
+    </ClCompile>
+    <ClCompile Include="hist_cmp.cpp">
+      <Filter>Source Files\core\compare\cmp</Filter>
+    </ClCompile>
+    <ClCompile Include="mssim_cmp.cpp">
+      <Filter>Source Files\core\compare\cmp</Filter>
+    </ClCompile>
+    <ClCompile Include="mssim_compare.cpp">
+      <Filter>Source Files\core\compare</Filter>
+    </ClCompile>
+    <ClCompile Include="pixel_cmp.cpp">
+      <Filter>Source Files\core\compare\cmp</Filter>
+    </ClCompile>
+    <ClCompile Include="pixel_compare.cpp">
+      <Filter>Source Files\core\compare</Filter>
+    </ClCompile>
+    <ClCompile Include="psnr_cmp.cpp">
+      <Filter>Source Files\core\compare\cmp</Filter>
+    </ClCompile>
+    <ClCompile Include="psnr_compare.cpp">
+      <Filter>Source Files\core\compare</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreReport.cpp">
+      <Filter>Source Files\core\other</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>Source Files\core\other</Filter>
+    </ClCompile>
+    <ClCompile Include="imageretrieval.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SearchingThread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SearchingThread.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SearchingThread.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="imageretrieval.h">
@@ -103,13 +157,13 @@
     <CustomBuild Include="imageretrieval.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="SearchingThread.h">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_imageretrieval.h">
       <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ScoreReport.h">
-      <Filter>Source Files\core</Filter>
     </ClInclude>
     <ClInclude Include="compare.h">
       <Filter>Source Files\core\compare</Filter>
@@ -131,6 +185,18 @@
     </ClInclude>
     <ClInclude Include="core_main.h">
       <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core_cmp.h">
+      <Filter>Source Files\core\compare\cmp</Filter>
+    </ClInclude>
+    <ClInclude Include="method_report.h">
+      <Filter>Source Files\core\other</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreReport.h">
+      <Filter>Source Files\core\other</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>Source Files\core\other</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

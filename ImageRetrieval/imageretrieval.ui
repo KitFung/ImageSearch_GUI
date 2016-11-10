@@ -37,7 +37,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QWidget" name="" native="true">
+       <widget class="QWidget" name="widget" native="true">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
           <horstretch>0</horstretch>
@@ -51,7 +51,7 @@
             <bool>true</bool>
            </property>
            <property name="text">
-            <string>Find 100 Similiar Images</string>
+            <string>Find similiar</string>
            </property>
           </widget>
          </item>
@@ -137,8 +137,4 @@
   <include location="imageretrieval.qrc"/>
  </resources>
  <connections/>
- <slots>
-  <signal>editjaja()</signal>
-  <slot>updateResult()</slot>
- </slots>
 </ui>
