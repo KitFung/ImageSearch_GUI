@@ -12,7 +12,7 @@ protected:
 
 private:
 	int inputID;
-	void startSearch();
+
 signals:
-	void doneSearch(vector<int> similiars, vector<string> infos);
+	void doneSearch(QVector<int> res, QVector<QString> infos);
 };

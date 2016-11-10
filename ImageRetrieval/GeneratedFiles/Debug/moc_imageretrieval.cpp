@@ -9,6 +9,7 @@
 #include "../../imageretrieval.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
+#include <QtCore/QVector>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'imageretrieval.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
@@ -20,7 +21,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_ImageRetrieval_t {
     QByteArrayData data[8];
-    char stringdata0[84];
+    char stringdata0[81];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -33,14 +34,14 @@ QT_MOC_LITERAL(0, 0, 14), // "ImageRetrieval"
 QT_MOC_LITERAL(1, 15, 11), // "startSearch"
 QT_MOC_LITERAL(2, 27, 0), // ""
 QT_MOC_LITERAL(3, 28, 12), // "updateResult"
-QT_MOC_LITERAL(4, 41, 11), // "vector<int>"
-QT_MOC_LITERAL(5, 53, 9), // "similiars"
-QT_MOC_LITERAL(6, 63, 14), // "vector<string>"
-QT_MOC_LITERAL(7, 78, 5) // "infos"
+QT_MOC_LITERAL(4, 41, 12), // "QVector<int>"
+QT_MOC_LITERAL(5, 54, 3), // "res"
+QT_MOC_LITERAL(6, 58, 16), // "QVector<QString>"
+QT_MOC_LITERAL(7, 75, 5) // "infos"
 
     },
     "ImageRetrieval\0startSearch\0\0updateResult\0"
-    "vector<int>\0similiars\0vector<string>\0"
+    "QVector<int>\0res\0QVector<QString>\0"
     "infos"
 };
 #undef QT_MOC_LITERAL
@@ -59,8 +60,8 @@ static const uint qt_meta_data_ImageRetrieval[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   24,    2, 0x0a /* Public */,
-       3,    2,   25,    2, 0x0a /* Public */,
+       1,    0,   24,    2, 0x08 /* Private */,
+       3,    2,   25,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -76,8 +77,21 @@ void ImageRetrieval::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->startSearch(); break;
-        case 1: _t->updateResult((*reinterpret_cast< vector<int>(*)>(_a[1])),(*reinterpret_cast< vector<string>(*)>(_a[2]))); break;
+        case 1: _t->updateResult((*reinterpret_cast< QVector<int>(*)>(_a[1])),(*reinterpret_cast< QVector<QString>(*)>(_a[2]))); break;
         default: ;
+        }
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        switch (_id) {
+        default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+        case 1:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 1:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< QVector<QString> >(); break;
+            case 0:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< QVector<int> >(); break;
+            }
+            break;
         }
     }
 }
@@ -112,7 +126,7 @@ int ImageRetrieval::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         _id -= 2;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         if (_id < 2)
-            *reinterpret_cast<int*>(_a[0]) = -1;
+            qt_static_metacall(this, _c, _id, _a);
         _id -= 2;
     }
     return _id;

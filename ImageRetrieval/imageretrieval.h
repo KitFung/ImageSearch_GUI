@@ -14,12 +14,12 @@ public:
 	ImageRetrieval(QWidget *parent = 0);
 	~ImageRetrieval();
 
-public slots:
+private slots:
 	void startSearch();
-	void updateResult(vector<int> similiars, vector<string> infos);
+	void updateResult(QVector<int> res, QVector<QString> infos);
+
 private:
 	Ui::ImageRetrievalClass ui;
-
 	SearchingThread searchThread;
 	void init();
 };

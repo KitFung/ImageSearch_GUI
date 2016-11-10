@@ -33,8 +33,8 @@ void ImageRetrieval::init() {
 	}
 
 	connect(ui.findSimiliar, SIGNAL(clicked()), this, SLOT(startSearch()));
-
-	connect(&searchThread, SIGNAL(doneSearch(vector<int>, vector<string>)), this, SLOT(updateResult(vector<int>, vector<string>)));
+	//connect(&searchThread, SIGNAL(doneSearch2(int)), this, SLOT(updateResult2(int)));
+	connect(&searchThread, SIGNAL(doneSearch(QVector<int>, QVector<QString>)), this, SLOT(updateResult(QVector<int>, QVector<QString>)));
 }
 
 void ImageRetrieval::startSearch() {
@@ -51,21 +51,21 @@ void ImageRetrieval::startSearch() {
 	searchThread.start();
 }
 
-void ImageRetrieval::updateResult(vector<int> similiars, vector<string> infos) {
+void ImageRetrieval::updateResult(QVector<int> res, QVector<QString> infos) {
 
 	ui.findSimiliar->setEnabled(true);
 	ui.findSimiliar->setText("Find similiar");
 
 	ui.resultList->clear();
-	for (auto id : similiars) {
-		QString qimgpath = QString().fromStdString(getFilePath999(id));
-		QString rid = QString().fromStdString(to_string(id));
+	for (auto id : res) {
+		QString qimgpath = QString::fromStdString(getFilePath999(id));
+		QString rid = QString::fromStdString(to_string(id));
 		ui.resultList->addItem(new QListWidgetItem(QIcon(qimgpath), rid));
 	}
 
 	ui.infoList->clear();
 	for (auto info : infos) {
-		QString qinfo = QString().fromStdString(info);
+		QString qinfo = info;
 		ui.infoList->addItem(new QListWidgetItem(qinfo));
 	}
 

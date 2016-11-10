@@ -150,7 +150,7 @@ public:
     void retranslateUi(QMainWindow *ImageRetrievalClass)
     {
         ImageRetrievalClass->setWindowTitle(QApplication::translate("ImageRetrievalClass", "ImageRetrieval", 0));
-        findSimiliar->setText(QApplication::translate("ImageRetrievalClass", "Find 100 Similiar Images", 0));
+        findSimiliar->setText(QApplication::translate("ImageRetrievalClass", "Find similiar", 0));
         pushButton_4->setText(QApplication::translate("ImageRetrievalClass", "PushButton", 0));
         pushButton_2->setText(QApplication::translate("ImageRetrievalClass", "PushButton", 0));
         pushButton->setText(QApplication::translate("ImageRetrievalClass", "PushButton", 0));
