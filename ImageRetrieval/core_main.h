@@ -21,4 +21,4 @@
 using namespace std;
 using namespace cv;
 
-vector<int> find_similiar_image(int index, vector<string> &infos, double threshold = 6.619589);
+vector<int> find_similiar_image(int index, vector<string> &infos, double threshold = 1.287449);

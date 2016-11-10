@@ -15,6 +15,7 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
@@ -35,6 +36,7 @@ public:
     QListWidget *baseImgList;
     QWidget *widget;
     QVBoxLayout *actionList;
+    QLabel *loader;
     QPushButton *findSimiliar;
     QPushButton *pushButton_4;
     QPushButton *pushButton_2;
@@ -83,6 +85,12 @@ public:
         actionList->setSpacing(6);
         actionList->setContentsMargins(11, 11, 11, 11);
         actionList->setObjectName(QStringLiteral("actionList"));
+        loader = new QLabel(widget);
+        loader->setObjectName(QStringLiteral("loader"));
+        loader->setMaximumSize(QSize(100, 150));
+
+        actionList->addWidget(loader);
+
         findSimiliar = new QPushButton(widget);
         findSimiliar->setObjectName(QStringLiteral("findSimiliar"));
         findSimiliar->setEnabled(true);
@@ -107,6 +115,11 @@ public:
 
         actionList->addWidget(pushButton);
 
+        findSimiliar->raise();
+        pushButton_4->raise();
+        pushButton_2->raise();
+        pushButton->raise();
+        loader->raise();
 
         horizontalLayout->addWidget(widget);
 
@@ -150,6 +163,7 @@ public:
     void retranslateUi(QMainWindow *ImageRetrievalClass)
     {
         ImageRetrievalClass->setWindowTitle(QApplication::translate("ImageRetrievalClass", "ImageRetrieval", 0));
+        loader->setText(QApplication::translate("ImageRetrievalClass", "HAHAHAH", 0));
         findSimiliar->setText(QApplication::translate("ImageRetrievalClass", "Find similiar", 0));
         pushButton_4->setText(QApplication::translate("ImageRetrievalClass", "PushButton", 0));
         pushButton_2->setText(QApplication::translate("ImageRetrievalClass", "PushButton", 0));

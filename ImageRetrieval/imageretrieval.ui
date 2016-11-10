@@ -46,6 +46,19 @@
         </property>
         <layout class="QVBoxLayout" name="actionList">
          <item>
+          <widget class="QLabel" name="loader">
+           <property name="maximumSize">
+            <size>
+             <width>100</width>
+             <height>150</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>HAHAHAH</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QPushButton" name="findSimiliar">
            <property name="enabled">
             <bool>true</bool>
@@ -86,6 +99,11 @@
           </widget>
          </item>
         </layout>
+        <zorder>findSimiliar</zorder>
+        <zorder>pushButton_4</zorder>
+        <zorder>pushButton_2</zorder>
+        <zorder>pushButton</zorder>
+        <zorder>loader</zorder>
        </widget>
       </item>
       <item>

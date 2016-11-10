@@ -5,7 +5,7 @@
 class SearchingThread : public QThread {
 	Q_OBJECT
 public:
-	SearchingThread();
+	SearchingThread(int inputID);
 
 protected:
 	void run();

@@ -20,8 +20,10 @@ private slots:
 
 private:
 	Ui::ImageRetrievalClass ui;
-	SearchingThread searchThread;
 	void init();
+	void setGOPic();
+	void setLoadGif();
+
 };
 
 #endif // IMAGERETRIEVAL_H

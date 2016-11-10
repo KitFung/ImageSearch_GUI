@@ -32,9 +32,26 @@ void ImageRetrieval::init() {
 		ui.baseImgList->addItem(new QListWidgetItem(QIcon(imgpath), qfiles[i]));
 	}
 
+	setGOPic();
+
 	connect(ui.findSimiliar, SIGNAL(clicked()), this, SLOT(startSearch()));
 	//connect(&searchThread, SIGNAL(doneSearch2(int)), this, SLOT(updateResult2(int)));
-	connect(&searchThread, SIGNAL(doneSearch(QVector<int>, QVector<QString>)), this, SLOT(updateResult(QVector<int>, QVector<QString>)));
+	
+}
+
+void ImageRetrieval::setGOPic() {
+	QPixmap pic("./go.jpg");
+	QPixmap npic = pic.scaledToWidth(100);
+	ui.loader->setPixmap(npic);
+	ui.loader->show();
+}
+
+void ImageRetrieval::setLoadGif() {
+	QMovie *mov = new QMovie("./loader.gif");
+	mov->setScaledSize(QSize(100, 100));
+	ui.loader->setMovie(mov);
+	ui.loader->show();
+	mov->start();
 }
 
 void ImageRetrieval::startSearch() {
@@ -42,19 +59,19 @@ void ImageRetrieval::startSearch() {
 	if (!ui.baseImgList->currentItem())
 		return;
 
-	ui.findSimiliar->setEnabled(false);
-	ui.findSimiliar->setText("Loading...");
-
 	QString curInput = ui.baseImgList->currentItem()->text();
 	int inputID = qfiles.indexOf(curInput);
 
-	searchThread.start();
+	ui.findSimiliar->setEnabled(false);
+	ui.findSimiliar->setText("Loading...");
+	setLoadGif();
+
+	SearchingThread *searchThread = new SearchingThread(inputID);
+	connect(searchThread, SIGNAL(doneSearch(QVector<int>, QVector<QString>)), this, SLOT(updateResult(QVector<int>, QVector<QString>)));
+	searchThread->start();
 }
 
 void ImageRetrieval::updateResult(QVector<int> res, QVector<QString> infos) {
-
-	ui.findSimiliar->setEnabled(true);
-	ui.findSimiliar->setText("Find similiar");
 
 	ui.resultList->clear();
 	for (auto id : res) {
@@ -69,4 +86,8 @@ void ImageRetrieval::updateResult(QVector<int> res, QVector<QString> infos) {
 		ui.infoList->addItem(new QListWidgetItem(qinfo));
 	}
 
+
+	ui.findSimiliar->setEnabled(true);
+	ui.findSimiliar->setText("Find similiar");
+	setGOPic();
 }

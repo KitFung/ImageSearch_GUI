@@ -1,9 +1,10 @@
 #include "SearchingThread.h"
 
-SearchingThread::SearchingThread() {}
+SearchingThread::SearchingThread(int inputID) {
+	this->inputID = inputID;
+}
 
 void SearchingThread::run() {
-	this->inputID = 1;
 	vector<string> infos;
 	vector<int> similiars = find_similiar_image(inputID, infos);
 
