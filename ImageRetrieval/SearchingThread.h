@@ -1,3 +1,5 @@
+#pragma once 
+
 #include <QThread>
 #include <QtWidgets>
 #include "core_main.h"

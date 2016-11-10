@@ -146,6 +146,24 @@
     <ClCompile Include="GeneratedFiles\Release\moc_SearchingThread.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MyLogger.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MyLogger.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="MyLogger.cpp">
+      <Filter>Source Files\core\other</Filter>
+    </ClCompile>
+    <ClCompile Include="ExtraFuncThread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ExtraFuncThread.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ExtraFuncThread.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="imageretrieval.h">
@@ -158,6 +176,12 @@
       <Filter>Resource Files</Filter>
     </CustomBuild>
     <CustomBuild Include="SearchingThread.h">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="MyLogger.h">
+      <Filter>Source Files\core\other</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ExtraFuncThread.h">
       <Filter>Source Files</Filter>
     </CustomBuild>
   </ItemGroup>

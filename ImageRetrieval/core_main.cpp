@@ -88,47 +88,7 @@ vector<int> find_similiar_image(int index, vector<string> &infos, double thresho
 	return res;
 }
 
-void extra_fucntion() {
-	cout << "==============================================================" << endl;
-	cout << "==                     Extra function                       ==" << endl;
-	cout << "==============================================================" << endl;
-	cout << "1.  pixel-by-pixel compare" << endl;
-	cout << "2.  hsv histrogram compare" << endl;
-	cout << "3.  splited image + hsv histrogram compare" << endl;
-	cout << "4.  SURF compare" << endl;
-	cout << "5.  SIFT compare" << endl;
-	cout << "6.  ORB compare" << endl;
-	cout << "7.  PSNR compare" << endl;
-	cout << "8.  MSSIM compare" << endl;
-	cout << "9.  SVM compare (require the manually label for the dataset)" << endl;
-
-	cout << "10. pixel-by-pixel compare + hsv historgram compare(correlation)" << endl;
-	cout << "11. equalized greyscale historgram compare(correlation)" << endl;
-	cout << "12.  equalized greyscale historgram + hsv histrogram compare(correlation)" << endl;
-	cout << "13. equalized greyscale historgram(correlation) + PSNR compare" << endl;
-	cout << "14. high contrast + hsv histrogram compare(correlation)" << endl;
-	cout << "15. high contrast + splited image + hsv histrogram compare(correlation)" << endl;
-	cout << "16. high contrast + PSNR" << endl;
-	cout << "17. high contrast + splited image + PSNR" << endl;
-	cout << "18. high contrast + MSSIM" << endl;
-	cout << "19. splited image + equalized greyscale historgram compare(correlation)" << endl;
-	cout << "20. high contrast + rgb histrogram compare(correlation)" << endl;
-	cout << "21. high contrast + rgb histrogram compare(correlation) + circle mask" << endl;
-	cout << "22. high contrast + hsv histrogram compare(correlation) + circle mask" << endl;
-	cout << "23. equalized greyscale histrogram compare(correlation) + circle mask" << endl;
-	cout << "24. hsv histrogram compare(correlation) + circle mask + PSNR" << endl;
-	cout << "25. high contrast + hsv histrogram compare(correlation) + SURF" << endl;
-	cout << "26. high contrast + hsv histrogram compare(correlation) + SIFT" << endl;
-	cout << "27. high contrast + hsv histrogram compare(correlation) + ORB" << endl;
-	cout << "28. Canny + contour compare" << endl; 
-	cout << "--------------------------------------------------------------" << endl;
-
-	int option = -1;
-	cin >> option;
-	while (option < 1 || option > 27) {
-		cout << "Invalid input, input again" << endl;
-		cin >> option;
-	}
+void extra_fucntion(int option) {
 	switch (option) {
 	case 1:
 		for (auto idx : valid_indexs) pixel_compare(get_input_img(idx), idx);
@@ -216,6 +176,4 @@ void extra_fucntion() {
 	default:
 		break;
 	}
-
-	cout << "Done" << endl;
 }

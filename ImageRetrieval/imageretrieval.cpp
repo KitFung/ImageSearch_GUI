@@ -16,6 +16,37 @@ ImageRetrieval::~ImageRetrieval()
 QVector<QString> qfiles = { "man", "beach", "building", "bus", "dinosaur", "elephant", "flower", "horse", "mountain", "food" };
 int qvalid_indexs[] = { 0, 1, 2, 3, 4, 6, 7 };
 
+QStringList extraFuncList = {
+	"pixel-by-pixel",
+	"hsv histrogram",
+	"splited + hsv histrogram",
+	"SURF",
+	"SIFT",
+	"ORB",
+	"PSNR",
+	"MSSIM",
+	"SVM compare",
+	"pixel-by-pixel + hsv",
+	"equalized greyscale (EG)",
+	"EG + hsv histrogram",
+	"EG + PSNR",
+	"high contrast + hsv histrogram",
+	"high contrast + splited hsv histrogram",
+	"high contrast + PSNR",
+	"high contrast + splited + PSNR",
+	"high contrast + MSSIM",
+	"splited equalized greyscale",
+	"high contrast + rgb histrogram",
+	"high contrast + rgb histrogram + circle mask",
+	"high contrast + hsv histrogram + circle mask",
+	"EG + circle mask",
+	"hsv histrogram + circle mask + PSNR",
+	"high contrast + hsv histrogra + SURF",
+	"high contrast + hsv histrogram + SIFT",
+	"high contrast + hsv histrogram + ORB",
+	"Canny + contour compare", 
+};
+
 void ImageRetrieval::init() {
 
 	ui.baseImgList->setViewMode(QListWidget::IconMode);
@@ -31,27 +62,40 @@ void ImageRetrieval::init() {
 		QString imgpath = qfiles[i] + ".jpg";
 		ui.baseImgList->addItem(new QListWidgetItem(QIcon(imgpath), qfiles[i]));
 	}
+	ui.extraFunc->addItems(extraFuncList);
 
 	setGOPic();
-
+	MyLogger& logger = MyLogger::instance();
 	connect(ui.findSimiliar, SIGNAL(clicked()), this, SLOT(startSearch()));
-	//connect(&searchThread, SIGNAL(doneSearch2(int)), this, SLOT(updateResult2(int)));
+	connect(ui.extraBtn, SIGNAL(clicked()), this, SLOT(startExtraFunc()));
+
+	connect(&logger, SIGNAL(log(QString)), this, SLOT(addLog(QString)));
+	
 	
 }
 
 void ImageRetrieval::setGOPic() {
 	QPixmap pic("./go.jpg");
-	QPixmap npic = pic.scaledToWidth(100);
+	QPixmap npic = pic.scaledToWidth(200);
 	ui.loader->setPixmap(npic);
 	ui.loader->show();
 }
 
 void ImageRetrieval::setLoadGif() {
 	QMovie *mov = new QMovie("./loader.gif");
-	mov->setScaledSize(QSize(100, 100));
+	mov->setScaledSize(QSize(200, 200));
 	ui.loader->setMovie(mov);
 	ui.loader->show();
 	mov->start();
+}
+
+
+void ImageRetrieval::resume() {
+	ui.findSimiliar->setEnabled(true);
+	ui.findSimiliar->setText("Find similiar");
+	ui.extraBtn->setEnabled(true);
+	ui.extraBtn->setText("Try");
+	setGOPic();
 }
 
 void ImageRetrieval::startSearch() {
@@ -62,6 +106,7 @@ void ImageRetrieval::startSearch() {
 	QString curInput = ui.baseImgList->currentItem()->text();
 	int inputID = qfiles.indexOf(curInput);
 
+	ui.extraBtn->setEnabled(false);
 	ui.findSimiliar->setEnabled(false);
 	ui.findSimiliar->setText("Loading...");
 	setLoadGif();
@@ -85,9 +130,29 @@ void ImageRetrieval::updateResult(QVector<int> res, QVector<QString> infos) {
 		QString qinfo = info;
 		ui.infoList->addItem(new QListWidgetItem(qinfo));
 	}
-
-
-	ui.findSimiliar->setEnabled(true);
-	ui.findSimiliar->setText("Find similiar");
-	setGOPic();
+	resume();
 }
+
+
+void ImageRetrieval::startExtraFunc() {
+	int option = ui.extraFunc->currentIndex();
+
+	ui.findSimiliar->setEnabled(false);
+	ui.extraBtn->setEnabled(false);
+	ui.extraBtn->setText("Analysising");
+	ui.resultList->clear();
+	ui.infoList->clear();
+	setLoadGif();
+
+	ExtraFuncThread *exThread = new ExtraFuncThread(option);
+	connect(exThread, SIGNAL(doneExtra()), this, SLOT(doneExtraFunc()));
+	exThread->start();
+}
+
+void ImageRetrieval::doneExtraFunc() {
+	resume();
+}
+
+void ImageRetrieval::addLog(QString str) {
+	ui.infoList->addItem(new QListWidgetItem(str));
+};

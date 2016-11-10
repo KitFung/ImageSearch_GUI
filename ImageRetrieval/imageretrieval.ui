@@ -23,6 +23,12 @@
    <string>ImageRetrieval</string>
   </property>
   <widget class="QWidget" name="centralWidget">
+   <property name="minimumSize">
+    <size>
+     <width>1024</width>
+     <height>0</height>
+    </size>
+   </property>
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
@@ -46,15 +52,40 @@
         </property>
         <layout class="QVBoxLayout" name="actionList">
          <item>
-          <widget class="QLabel" name="loader">
+          <widget class="QLabel" name="label">
            <property name="maximumSize">
             <size>
-             <width>100</width>
-             <height>150</height>
+             <width>500</width>
+             <height>500</height>
             </size>
            </property>
            <property name="text">
-            <string>HAHAHAH</string>
+            <string>Threshold</string>
+           </property>
+           <property name="scaledContents">
+            <bool>false</bool>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDoubleSpinBox" name="threshold">
+           <property name="wrapping">
+            <bool>false</bool>
+           </property>
+           <property name="prefix">
+            <string/>
+           </property>
+           <property name="decimals">
+            <number>8</number>
+           </property>
+           <property name="singleStep">
+            <double>0.010000000000000</double>
+           </property>
+           <property name="value">
+            <double>1.287449000000000</double>
            </property>
           </widget>
          </item>
@@ -69,40 +100,72 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_4">
-           <property name="enabled">
-            <bool>false</bool>
+          <widget class="QLabel" name="loader">
+           <property name="maximumSize">
+            <size>
+             <width>500</width>
+             <height>500</height>
+            </size>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string>HAHAHAH</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_2">
-           <property name="enabled">
-            <bool>false</bool>
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
            </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_2">
            <property name="text">
-            <string>PushButton</string>
+            <string>Extra function</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QComboBox" name="extraFunc">
+           <property name="maximumSize">
+            <size>
+             <width>250</width>
+             <height>16777215</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="extraBtn">
            <property name="enabled">
-            <bool>false</bool>
+            <bool>true</bool>
            </property>
            <property name="text">
-            <string>PushButton</string>
+            <string>Try</string>
            </property>
           </widget>
          </item>
         </layout>
         <zorder>findSimiliar</zorder>
-        <zorder>pushButton_4</zorder>
-        <zorder>pushButton_2</zorder>
-        <zorder>pushButton</zorder>
+        <zorder>extraBtn</zorder>
+        <zorder>threshold</zorder>
+        <zorder>label</zorder>
+        <zorder>verticalSpacer</zorder>
+        <zorder>extraFunc</zorder>
+        <zorder>label_2</zorder>
         <zorder>loader</zorder>
        </widget>
       </item>
@@ -139,6 +202,12 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuHi">
+    <property name="title">
+     <string>Exit</string>
+    </property>
+   </widget>
+   <addaction name="menuHi"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">

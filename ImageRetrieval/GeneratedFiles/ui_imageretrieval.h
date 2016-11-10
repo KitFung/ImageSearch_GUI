@@ -13,13 +13,17 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
@@ -36,14 +40,18 @@ public:
     QListWidget *baseImgList;
     QWidget *widget;
     QVBoxLayout *actionList;
-    QLabel *loader;
+    QLabel *label;
+    QDoubleSpinBox *threshold;
     QPushButton *findSimiliar;
-    QPushButton *pushButton_4;
-    QPushButton *pushButton_2;
-    QPushButton *pushButton;
+    QLabel *loader;
+    QSpacerItem *verticalSpacer;
+    QLabel *label_2;
+    QComboBox *extraFunc;
+    QPushButton *extraBtn;
     QListWidget *resultList;
     QListWidget *infoList;
     QMenuBar *menuBar;
+    QMenu *menuHi;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -60,6 +68,7 @@ public:
         ImageRetrievalClass->setSizePolicy(sizePolicy);
         centralWidget = new QWidget(ImageRetrievalClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        centralWidget->setMinimumSize(QSize(1024, 0));
         horizontalLayout_2 = new QHBoxLayout(centralWidget);
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -85,11 +94,22 @@ public:
         actionList->setSpacing(6);
         actionList->setContentsMargins(11, 11, 11, 11);
         actionList->setObjectName(QStringLiteral("actionList"));
-        loader = new QLabel(widget);
-        loader->setObjectName(QStringLiteral("loader"));
-        loader->setMaximumSize(QSize(100, 150));
+        label = new QLabel(widget);
+        label->setObjectName(QStringLiteral("label"));
+        label->setMaximumSize(QSize(500, 500));
+        label->setScaledContents(false);
+        label->setAlignment(Qt::AlignCenter);
 
-        actionList->addWidget(loader);
+        actionList->addWidget(label);
+
+        threshold = new QDoubleSpinBox(widget);
+        threshold->setObjectName(QStringLiteral("threshold"));
+        threshold->setWrapping(false);
+        threshold->setDecimals(8);
+        threshold->setSingleStep(0.01);
+        threshold->setValue(1.28745);
+
+        actionList->addWidget(threshold);
 
         findSimiliar = new QPushButton(widget);
         findSimiliar->setObjectName(QStringLiteral("findSimiliar"));
@@ -97,28 +117,41 @@ public:
 
         actionList->addWidget(findSimiliar);
 
-        pushButton_4 = new QPushButton(widget);
-        pushButton_4->setObjectName(QStringLiteral("pushButton_4"));
-        pushButton_4->setEnabled(false);
+        loader = new QLabel(widget);
+        loader->setObjectName(QStringLiteral("loader"));
+        loader->setMaximumSize(QSize(500, 500));
+        loader->setAlignment(Qt::AlignCenter);
 
-        actionList->addWidget(pushButton_4);
+        actionList->addWidget(loader);
 
-        pushButton_2 = new QPushButton(widget);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setEnabled(false);
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        actionList->addWidget(pushButton_2);
+        actionList->addItem(verticalSpacer);
 
-        pushButton = new QPushButton(widget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setEnabled(false);
+        label_2 = new QLabel(widget);
+        label_2->setObjectName(QStringLiteral("label_2"));
+        label_2->setAlignment(Qt::AlignCenter);
 
-        actionList->addWidget(pushButton);
+        actionList->addWidget(label_2);
+
+        extraFunc = new QComboBox(widget);
+        extraFunc->setObjectName(QStringLiteral("extraFunc"));
+        extraFunc->setMaximumSize(QSize(250, 16777215));
+
+        actionList->addWidget(extraFunc);
+
+        extraBtn = new QPushButton(widget);
+        extraBtn->setObjectName(QStringLiteral("extraBtn"));
+        extraBtn->setEnabled(true);
+
+        actionList->addWidget(extraBtn);
 
         findSimiliar->raise();
-        pushButton_4->raise();
-        pushButton_2->raise();
-        pushButton->raise();
+        extraBtn->raise();
+        threshold->raise();
+        label->raise();
+        extraFunc->raise();
+        label_2->raise();
         loader->raise();
 
         horizontalLayout->addWidget(widget);
@@ -147,6 +180,8 @@ public:
         menuBar = new QMenuBar(ImageRetrievalClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 1114, 21));
+        menuHi = new QMenu(menuBar);
+        menuHi->setObjectName(QStringLiteral("menuHi"));
         ImageRetrievalClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(ImageRetrievalClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -154,6 +189,8 @@ public:
         statusBar = new QStatusBar(ImageRetrievalClass);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         ImageRetrievalClass->setStatusBar(statusBar);
+
+        menuBar->addAction(menuHi->menuAction());
 
         retranslateUi(ImageRetrievalClass);
 
@@ -163,11 +200,13 @@ public:
     void retranslateUi(QMainWindow *ImageRetrievalClass)
     {
         ImageRetrievalClass->setWindowTitle(QApplication::translate("ImageRetrievalClass", "ImageRetrieval", 0));
-        loader->setText(QApplication::translate("ImageRetrievalClass", "HAHAHAH", 0));
+        label->setText(QApplication::translate("ImageRetrievalClass", "Threshold", 0));
+        threshold->setPrefix(QString());
         findSimiliar->setText(QApplication::translate("ImageRetrievalClass", "Find similiar", 0));
-        pushButton_4->setText(QApplication::translate("ImageRetrievalClass", "PushButton", 0));
-        pushButton_2->setText(QApplication::translate("ImageRetrievalClass", "PushButton", 0));
-        pushButton->setText(QApplication::translate("ImageRetrievalClass", "PushButton", 0));
+        loader->setText(QApplication::translate("ImageRetrievalClass", "HAHAHAH", 0));
+        label_2->setText(QApplication::translate("ImageRetrievalClass", "Extra function", 0));
+        extraBtn->setText(QApplication::translate("ImageRetrievalClass", "Try", 0));
+        menuHi->setTitle(QApplication::translate("ImageRetrievalClass", "Exit", 0));
     } // retranslateUi
 
 };

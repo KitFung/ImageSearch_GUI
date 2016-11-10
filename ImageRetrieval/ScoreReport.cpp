@@ -1,4 +1,5 @@
 #include "ScoreReport.h"
+#include "MyLogger.h"
 
 string getGrade(int firstWrong, int p, int r){
 	return (firstWrong > 0 && p >= 60 && r >= 60) ? "A++" :
@@ -67,16 +68,24 @@ ScoreReport::ScoreReport(vector<ImgScore>& scoreList, int inputIndex) : scoreLis
 
 void ScoreReport::report() {
 	string grade = getGrade(firstWrong, bestP, bestR);
-	printf("img#%i, Grade(%s) Acc100: %.0f%%, firstWrong:%i, bestIndex:%u, bP:%.4f%%, bR:%.4f%%, bPRS:%.4f \n"
+
+	char tempname[1000];
+	sprintf_s(tempname, 1000, "../%s", "img#%i, Grade(%s) Acc100: %.0f%%, firstWrong:%i, bestIndex:%u, bP:%.4f%%, bR:%.4f%%, bPRS:%.4f \n"
 		, inputIndex, grade.c_str(), acc100, firstWrong, bestPSindex, bestP, bestR, bestPRS);
+	
+	emit MyLogger::instance().log(tempname);
 
 	reportExtend();
 }
 
 void ScoreReport::report(int row, int col) {
 	string grade = getGrade(firstWrong, bestP, bestR);
-	printf("img#%i r%02ic%02i, Grade(%s) Acc100: %.0f%%, firstWrong:%i, bestIndex:%u, bP:%.4f%%, bR:%.4f%%, bPRS:%.4f  \n"
+
+	char tempname[1000];
+	sprintf_s(tempname, 1000, "img#%i r%02ic%02i, Grade(%s) Acc100: %.0f%%, firstWrong:%i, bestIndex:%u, bP:%.4f%%, bR:%.4f%%, bPRS:%.4f  \n"
 		, inputIndex, row, col, grade.c_str(), acc100, firstWrong, bestPSindex, bestP, bestR, bestPRS);
+
+	emit MyLogger::instance().log(tempname);
 
 	reportExtend();
 }

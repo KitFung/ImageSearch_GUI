@@ -4,7 +4,9 @@
 #include <QtWidgets>
 #include "ui_imageretrieval.h"
 #include "SearchingThread.h"
+#include "ExtraFuncThread.h"
 #include "core_main.h"
+#include "MyLogger.h"
 
 class ImageRetrieval : public QMainWindow
 {
@@ -17,13 +19,15 @@ public:
 private slots:
 	void startSearch();
 	void updateResult(QVector<int> res, QVector<QString> infos);
-
+	void startExtraFunc();
+	void doneExtraFunc();
+	void addLog(QString str);
 private:
 	Ui::ImageRetrievalClass ui;
 	void init();
 	void setGOPic();
 	void setLoadGif();
-
+	void resume();
 };
 
 #endif // IMAGERETRIEVAL_H
