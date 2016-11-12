@@ -231,6 +231,7 @@ vector<int> new_compare(Mat src_color, int inputIndex, double threshold) {
 
 	src_color = equalize_channel_Y(src_color);
 
+
 	Mat src_color_middle = cutMiddle(src_color);
 	Mat src_gray_middle = cutMiddle(src_gray);
 
@@ -280,7 +281,7 @@ vector<int> new_compare(Mat src_color, int inputIndex, double threshold) {
 	vector<int> errorIndex;
 
 	vector<ImgScore> iss_list;
-	for (int fileIndex = 0; fileIndex < 10; fileIndex++) {
+	for (int fileIndex = 0; fileIndex < 1000; fileIndex++) {
 		try {
 			// ===== Load file =====
 			string file = "../image.orig/" + to_string(fileIndex) + ".jpg";
@@ -395,9 +396,10 @@ vector<int> new_compare(Mat src_color, int inputIndex, double threshold) {
 	// sort
 	sort(iss_list.rbegin(), iss_list.rend());
 
-	//ScoreReport sr = ScoreReport(iss_list, inputIndex);
-	//sr.reportSorted(200);
-	//sr.report();
+	ScoreReport sr;
+	sr = ScoreReport(iss_list, inputIndex);
+	sr.reportSorted(200);
+	sr.report();
 
 	// check time
 	clock_t end = clock();
@@ -407,23 +409,15 @@ vector<int> new_compare(Mat src_color, int inputIndex, double threshold) {
 
 	vector<ImgScore> iss_threshold = iss_list;
 
-	sort(iss_threshold.rbegin(), iss_threshold.rend());
-threshold:
 	// apply threshold
-	int thresholdIndex = 0;
 	for (int i = 0; i < iss_threshold.size(); i++) {
 		if (iss_threshold[i].score < threshold) {
-			thresholdIndex = i;
-			//iss_threshold.resize(i);
+			iss_threshold.resize(i);
 			break;
 		}
 	}
-
-	iss_threshold.resize(thresholdIndex);
-	//if (iss_threshold.size() != thresholdIndex)
-	//	throw "ERROR of iss_threshold size";
-
 	ScoreReport sr_threshold = ScoreReport(iss_threshold, inputIndex);
+
 
 	double p = sr_threshold.correct / (double) iss_threshold.size() * (double) 100.0;
 	double r = sr_threshold.correct;
@@ -431,9 +425,21 @@ threshold:
 	printf("p:%f, r:%f, size:%i (", p, r, iss_threshold.size());
 
 	vector<int> res;
-	for (int i = 0; i < thresholdIndex; ++i) {
+	for (int i = 0; i < iss_threshold.size(); ++i)
 		res.push_back(iss_threshold[i].db_id);
-	}
+
+	//if (input == -2) {
+	//	vector<ImgScore> save_list = sr.scoreList;
+	//	string  filename = "./core_result/input_" + to_string(inputIndex) + ".yml";
+	//	FileStorage fs(filename.c_str(), FileStorage::WRITE);
+	//	//write(fs, "aNameYouLike", save_list);
+	//	fs << "ImgScore" << "[";
+	//	for each(ImgScore ims in save_list) { fs << ims; }
+	//	fs << "]";   // close sequence
+	//	fs.release();
+	//}
+
+
 	return res;
 }
 
