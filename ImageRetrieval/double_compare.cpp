@@ -233,7 +233,6 @@ vector<int> new_compare(Mat src_color, int inputIndex, double threshold) {
 
 	src_color = equalize_channel_Y(src_color);
 
-
 	Mat src_color_middle = cutMiddle(src_color);
 	Mat src_gray_middle = cutMiddle(src_gray);
 
@@ -385,9 +384,6 @@ vector<int> new_compare(Mat src_color, int inputIndex, double threshold) {
 
 			iss_list.push_back(ImgScore(fileIndex, calScore));
 
-
-
-
 		} catch (Exception e) {
 			printf(" -----ERROR-----img#%i, %s\n", fileIndex, e.msg);
 			errorIndex.push_back(fileIndex);
@@ -430,8 +426,7 @@ vector<int> new_compare(Mat src_color, int inputIndex, double threshold) {
 		}
 	}
 	ScoreReport sr_threshold = ScoreReport(iss_threshold, inputIndex);
-
-
+	
 	double p = sr_threshold.correct / (double) iss_threshold.size() * (double) 100.0;
 	double r = sr_threshold.correct;
 
@@ -441,12 +436,7 @@ vector<int> new_compare(Mat src_color, int inputIndex, double threshold) {
 	for (int i = 0; i < iss_threshold.size(); ++i)
 		res.push_back(iss_threshold[i].db_id);
 
-
-
 	return res;
-
-
-
 }
 
 //vector<int> new_compare(Mat src_color, int inputIndex, double threshold) {
