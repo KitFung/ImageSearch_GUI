@@ -107,7 +107,7 @@ public:
         threshold->setWrapping(false);
         threshold->setDecimals(8);
         threshold->setSingleStep(0.01);
-        threshold->setValue(1.28745);
+        threshold->setValue(3.62853);
 
         actionList->addWidget(threshold);
 

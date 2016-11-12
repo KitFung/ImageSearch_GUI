@@ -217,16 +217,9 @@ Mat cutMiddle(Mat src) {
 
 
 vector<int> new_compare(Mat src_color, int inputIndex, double threshold) {
-	//int hbins_[3] = { 24, 24, 8 };
-	//int sbins_[3] = { 28, 28, 4 };
-	//int minH_[3] = { 128, 128, 32 };
 	int hsv_divide_[2] = { 4, 4 };
 	int fea_divide_[2] = { 5, 5 };
 	int minH = 192, hbins = 24, sbins = 28;
-	//int hce_method_src = 2 , hce_method_dbimg = 2;
-	//double higherContrast_src = 1.2;
-	//double higherContrast_dbimg = 1.2;
-	//int method_count = METHOD_COUNT;
 
 	Mat src_gray; // imread(src.c_str(), CV_LOAD_IMAGE_GRAYSCALE);
 	cv::cvtColor(src_color, src_gray, CV_BGR2GRAY); // CV_BGR2GRAY
@@ -407,33 +400,31 @@ vector<int> new_compare(Mat src_color, int inputIndex, double threshold) {
 	times_need.push_back(elapsed_secs);
 	printf("\nused time:%f\n", elapsed_secs);
 
-	//double input;
-	//cout << "using threshold " << threshold << " (-1 for ok, -2 to save, others value for change the threshold):";
-	//cin >> input;
-
-
-	//if (input != -1 && input != -2) {
-	//	threshold = input;
-	//}
-
 	vector<ImgScore> iss_threshold = iss_list;
 
 	// apply threshold
+	int thresholdIndex = 0;
 	for (int i = 0; i < iss_threshold.size(); i++) {
 		if (iss_threshold[i].score < threshold) {
+			thresholdIndex = i;
 			iss_threshold.resize(i);
 			break;
 		}
 	}
+
+	iss_threshold.resize(thresholdIndex);
+	if (iss_threshold.size() != thresholdIndex)
+		throw "ERROR of iss_threshold size";
+
 	ScoreReport sr_threshold = ScoreReport(iss_threshold, inputIndex);
-	
+
 	double p = sr_threshold.correct / (double) iss_threshold.size() * (double) 100.0;
 	double r = sr_threshold.correct;
 
 	printf("p:%f, r:%f, size:%i (", p, r, iss_threshold.size());
 
 	vector<int> res;
-	for (int i = 0; i < iss_threshold.size(); ++i)
+	for (int i = 0; i < thresholdIndex; ++i)
 		res.push_back(iss_threshold[i].db_id);
 
 	return res;

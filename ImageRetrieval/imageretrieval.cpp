@@ -1,51 +1,52 @@
 #include "imageretrieval.h"
 
 ImageRetrieval::ImageRetrieval(QWidget *parent)
-	: QMainWindow(parent)
-{
+: QMainWindow(parent) {
 	ui.setupUi(this);
 	init();
 }
 
-ImageRetrieval::~ImageRetrieval()
-{
+ImageRetrieval::~ImageRetrieval() {
 	init();
 }
 
 
-QVector<QString> qfiles = { "man", "beach", "building", "bus", "dinosaur", "elephant", "flower", "horse", "mountain", "food" };
+//QVector<QString> qfiles = { "man", "beach", "building", "bus", "dinosaur", "elephant", "flower", "horse", "mountain"<< "food" };
+QVector<QString> qfiles(QVector<QString>() << "man" << "beach" << "building" << "bus" << "dinosaur" << "elephant" << "flower" << "horse" << "mountain" << "food");
+
 int qvalid_indexs[] = { 0, 1, 2, 3, 4, 6, 7 };
 
-QStringList extraFuncList = {
-	"pixel-by-pixel",
-	"hsv histrogram",
-	"splited + hsv histrogram",
-	"SURF",
-	"SIFT",
-	"ORB",
-	"PSNR",
-	"MSSIM",
-	"SVM compare",
-	"pixel-by-pixel + hsv",
-	"equalized greyscale (EG)",
-	"EG + hsv histrogram",
-	"EG + PSNR",
-	"high contrast + hsv histrogram",
-	"high contrast + splited hsv histrogram",
-	"high contrast + PSNR",
-	"high contrast + splited + PSNR",
-	"high contrast + MSSIM",
-	"splited equalized greyscale",
-	"high contrast + rgb histrogram",
-	"high contrast + rgb histrogram + circle mask",
-	"high contrast + hsv histrogram + circle mask",
-	"EG + circle mask",
-	"hsv histrogram + circle mask + PSNR",
-	"high contrast + hsv histrogra + SURF",
-	"high contrast + hsv histrogram + SIFT",
-	"high contrast + hsv histrogram + ORB",
-	"Canny + contour compare", 
-};
+QStringList extraFuncList(
+	QStringList() <<
+	"pixel-by-pixel" <<
+	"hsv histrogram" <<
+	"splited + hsv histrogram" <<
+	"SURF" <<
+	"SIFT" <<
+	"ORB" <<
+	"PSNR" <<
+	"MSSIM" <<
+	"SVM compare" <<
+	"pixel-by-pixel + hsv" <<
+	"equalized greyscale (EG)" <<
+	"EG + hsv histrogram" <<
+	"EG + PSNR" <<
+	"high contrast + hsv histrogram" <<
+	"high contrast + splited hsv histrogram" <<
+	"high contrast + PSNR" <<
+	"high contrast + splited + PSNR" <<
+	"high contrast + MSSIM" <<
+	"splited equalized greyscale" <<
+	"high contrast + rgb histrogram" <<
+	"high contrast + rgb histrogram + circle mask" <<
+	"high contrast + hsv histrogram + circle mask" <<
+	"EG + circle mask" <<
+	"hsv histrogram + circle mask + PSNR" <<
+	"high contrast + hsv histrogra + SURF" <<
+	"high contrast + hsv histrogram + SIFT" <<
+	"high contrast + hsv histrogram + ORB" <<
+	"Canny + contour compare"
+	);
 
 void ImageRetrieval::init() {
 
@@ -70,8 +71,8 @@ void ImageRetrieval::init() {
 	connect(ui.extraBtn, SIGNAL(clicked()), this, SLOT(startExtraFunc()));
 
 	connect(&logger, SIGNAL(log(QString)), this, SLOT(addLog(QString)));
-	
-	
+
+
 }
 
 void ImageRetrieval::setGOPic() {

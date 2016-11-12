@@ -83,7 +83,7 @@ void waitESC() {
 vector<int> find_similiar_image(int index, vector<string> &infos, double threshold) {
 	Mat src_input = get_input_img(index);
 	vector<int> res = new_compare(src_input, index, threshold);
-	save_result(res);
+	save_result(res, index);
 
 	return res;
 }

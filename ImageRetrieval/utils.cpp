@@ -35,14 +35,14 @@ double validate_fit(vector<ImgScore> ids, int target_id) {
 
 	for (auto imgS : ids) if (get_group(imgS.db_id) == target_id) cnt++;
 
-	return cnt / (double)len;
+	return cnt / (double) len;
 }
 
 
 vector<double> normalize_vec(const vector<double> &vec) {
 	int len = vec.size();
-	if (len == 0) return {};
-	if (len == 1) return { 0 };
+	if (len == 0) return{};
+	if (len == 1) return{ 0 };
 
 	vector<double> res(len);
 	double minv = vec[0], maxv = vec[0];
@@ -60,20 +60,21 @@ vector<double> normalize_vec(const vector<double> &vec) {
 }
 
 string BOW_file_path(string featureName, int dictionarySize, bool greyscale) {
-	return "../bow/" + (string)(greyscale ? "g_" : "") + featureName + to_string(dictionarySize) + ".yml";
+	return "../bow/" + (string) (greyscale ? "g_" : "") + featureName + to_string(dictionarySize) + ".yml";
 }
 
 string ids_features_file_path(string featureName, int dictionarySize, bool greyscale) {
-	return "../bow/" + (string)(greyscale ? "g_f" : "f") + featureName + to_string(dictionarySize) + ".yml";
+	return "../bow/" + (string) (greyscale ? "g_f" : "f") + featureName + to_string(dictionarySize) + ".yml";
 }
 
-void save_result(const vector<int>& nums) {
+void save_result(const vector<int>& nums, int inputIndex) {
+	string files[] = { "man", "beach", "building", "bus", "dinosaur", "elephant", "flower", "horse", "mountain", "food" };
 	wstring fpath = L"../result/";
 	RemoveDirectory(fpath.data());
 	CreateDirectory(fpath.data(), NULL);
-	for (auto num : nums) {
+	for (int num : nums) {
 		ifstream src(getFilePath999(num), ios::binary);
-		ofstream dst("../result/" + to_string(num) + ".jpg", ios::binary);
+		ofstream dst("../result/" + files[inputIndex] + "/" + to_string(num) + ".jpg", ios::binary);
 		dst << src.rdbuf();
 	}
 }
