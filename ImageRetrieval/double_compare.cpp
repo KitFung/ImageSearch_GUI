@@ -217,6 +217,11 @@ Mat cutMiddle(Mat src) {
 
 
 vector<int> new_compare(Mat src_color, int inputIndex, double threshold) {
+	//if (true == true) {
+	//	vector<int> result;
+	//	result.push_back(1);
+	//	return result;
+	//}
 	int hsv_divide_[2] = { 4, 4 };
 	int fea_divide_[2] = { 5, 5 };
 	int minH = 192, hbins = 24, sbins = 28;
@@ -275,7 +280,7 @@ vector<int> new_compare(Mat src_color, int inputIndex, double threshold) {
 	vector<int> errorIndex;
 
 	vector<ImgScore> iss_list;
-	for (int fileIndex = 0; fileIndex < 1000; fileIndex++) {
+	for (int fileIndex = 0; fileIndex < 10; fileIndex++) {
 		try {
 			// ===== Load file =====
 			string file = "../image.orig/" + to_string(fileIndex) + ".jpg";
@@ -388,11 +393,11 @@ vector<int> new_compare(Mat src_color, int inputIndex, double threshold) {
 	cout << endl;
 
 	// sort
-	ScoreReport sr;
 	sort(iss_list.rbegin(), iss_list.rend());
-	sr = ScoreReport(iss_list, inputIndex);
-	sr.reportSorted(200);
-	sr.report();
+
+	//ScoreReport sr = ScoreReport(iss_list, inputIndex);
+	//sr.reportSorted(200);
+	//sr.report();
 
 	// check time
 	clock_t end = clock();
@@ -402,19 +407,21 @@ vector<int> new_compare(Mat src_color, int inputIndex, double threshold) {
 
 	vector<ImgScore> iss_threshold = iss_list;
 
+	sort(iss_threshold.rbegin(), iss_threshold.rend());
+threshold:
 	// apply threshold
 	int thresholdIndex = 0;
 	for (int i = 0; i < iss_threshold.size(); i++) {
 		if (iss_threshold[i].score < threshold) {
 			thresholdIndex = i;
-			iss_threshold.resize(i);
+			//iss_threshold.resize(i);
 			break;
 		}
 	}
 
 	iss_threshold.resize(thresholdIndex);
-	if (iss_threshold.size() != thresholdIndex)
-		throw "ERROR of iss_threshold size";
+	//if (iss_threshold.size() != thresholdIndex)
+	//	throw "ERROR of iss_threshold size";
 
 	ScoreReport sr_threshold = ScoreReport(iss_threshold, inputIndex);
 
@@ -424,9 +431,9 @@ vector<int> new_compare(Mat src_color, int inputIndex, double threshold) {
 	printf("p:%f, r:%f, size:%i (", p, r, iss_threshold.size());
 
 	vector<int> res;
-	for (int i = 0; i < thresholdIndex; ++i)
+	for (int i = 0; i < thresholdIndex; ++i) {
 		res.push_back(iss_threshold[i].db_id);
-
+	}
 	return res;
 }
 
